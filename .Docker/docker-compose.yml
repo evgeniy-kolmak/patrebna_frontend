@@ -1,0 +1,14 @@
+version: '3'
+services:
+  frontend:
+    build: 
+      context: ../
+      dockerfile: .Docker/Dockerfile
+    image: frontend
+    container_name: patrebna_frontend
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ../public:/usr/share/nginx/html
+      - ../nginx/nginx.conf:/etc/nginx/nginx.conf
