@@ -16,6 +16,8 @@ services:
       - ../certs:/etc/letsencrypt
   certbot:
     image: certbot/certbot
+    container_name: certbot
+    restart: always
     volumes:
       - ../certs:/etc/letsencrypt 
       - ../nginx/nginx.conf:/etc/nginx/nginx.conf
