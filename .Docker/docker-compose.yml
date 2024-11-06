@@ -16,7 +16,7 @@ services:
     networks:
       - patrebna-network
     depends_on:
-      - patrebna_frontend
+      - next
 
   next:
     build:
