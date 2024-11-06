@@ -1,11 +1,11 @@
 version: '3'
 services:
-  frontend:
+  nginx:
     build: 
       context: ../
-      dockerfile: .Docker/Dockerfile
-    image: frontend
-    container_name: patrebna_frontend
+      dockerfile: .Docker/nginx/Dockerfile
+    image: nginx_server
+    container_name: patrebna_nginx
     restart: always
     ports:
       - "80:80"
@@ -14,21 +14,29 @@ services:
       - ../nginx/nginx.conf:/etc/nginx/nginx.conf
       - ../certs:/etc/letsencrypt
     networks:
-      - patrebna-network  
+      - patrebna-network
+    depends_on:
+      - patrebna_frontend
 
-  nextjs:
+  next:
     build:
       context: ../
-      dockerfile: .Docker/Dockerfile
+      dockerfile: .Docker/next/Dockerfile
     image: nextjs
-    container_name: patrebna_nextjs
+    container_name: patrebna_frontend
     restart: always
     environment:
       - NODE_ENV=production
-    depends_on:
-      - frontend
+    expose:
+      - 3000  
     networks:
       - patrebna-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
 
   certbot:
     image: certbot/certbot
