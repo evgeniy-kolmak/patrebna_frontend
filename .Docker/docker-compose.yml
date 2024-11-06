@@ -17,18 +17,18 @@ services:
       - patrebna-network  
 
   nextjs:
-    image: node:latest
-    command: npm run start 
-    volumes:
-      - ../:/usr/src/app
+    build:
+      context: ../
+      dockerfile: .Docker/Dockerfile
+    image: nextjs
+    container_name: patrebna_nextjs
+    restart: always
     environment:
       - NODE_ENV=production
     depends_on:
       - frontend
-    expose:
-      - 3000:3000
     networks:
-      - patrebna-network  
+      - patrebna-network
 
   certbot:
     image: certbot/certbot

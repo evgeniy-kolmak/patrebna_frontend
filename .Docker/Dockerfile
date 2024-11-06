@@ -16,8 +16,9 @@ COPY --from=build /usr/src/app/.next /usr/share/nginx/html
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["npm", "run", "start"]
+EXPOSE 443
+
 
 
