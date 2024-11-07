@@ -16,6 +16,8 @@ WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/.next ./.next
 
+COPY --from=build /usr/src/app/public ./public
+
 COPY --from=build /usr/src/app/package*.json ./
 
 RUN npm install --production
