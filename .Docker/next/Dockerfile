@@ -14,7 +14,7 @@ FROM node:latest
 
 WORKDIR /usr/src/app
 
-COPY --from=build /usr/src/app/.next ./
+COPY --from=build /usr/src/app/.next ./.next
 
 COPY --from=build /usr/src/app/package*.json ./
 
