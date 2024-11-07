@@ -15,9 +15,6 @@ services:
       - ../certs:/etc/letsencrypt
     networks:
       - patrebna-network
-    depends_on:
-      - next
-
   next:
     build:
       context: ../
@@ -25,19 +22,8 @@ services:
     image: nextjs
     container_name: patrebna_frontend
     restart: always
-    environment:
-      - NODE_ENV=production
-    expose:
-      - 3000  
     networks:
       - patrebna-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      retries: 5
-      start_period: 5s
-      timeout: 5s
-
   certbot:
     image: certbot/certbot
     container_name: certbot
@@ -48,7 +34,6 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     networks:
       - patrebna-network  
-
 networks:
   patrebna-network:
     driver: bridge
