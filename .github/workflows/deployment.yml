@@ -16,5 +16,5 @@ jobs:
             cd patrebna_frontend
             git pull origin main
             cd .Docker
-            docker-compose up -d --build patrebna_frontend
+            docker-compose up -d --build nextjs
             docker image prune -f
